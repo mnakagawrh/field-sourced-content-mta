@@ -1,0 +1,11 @@
+# Operator installation via OLM
+operator:
+  # Set to true to install the operator
+  # Set to false if operator is already installed on cluster
+  enabled: false
+  name: mta-operator
+  namespace: openshift-mta
+  channel: stable-v8.0
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  installPlanApproval: Automatic

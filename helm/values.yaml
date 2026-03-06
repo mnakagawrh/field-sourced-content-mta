@@ -1,0 +1,42 @@
+# Field Content Demo - App of Apps
+# This chart deploys multiple components as separate ArgoCD Applications
+
+# ============================================================
+# GitOps Configuration
+# ============================================================
+gitops:
+  # Repository containing the component charts
+  repoUrl: "https://github.com/mnakagawrh/field-sourced-content-mta.git"
+  revision: "main"
+  basePath: "helm"
+
+# ArgoCD settings
+argocd:
+  namespace: openshift-gitops
+  project: default
+
+# ============================================================
+# Components - Enable/disable and configure each component
+# ============================================================
+components:
+
+  # --- Operator Installation ---
+  operator1:
+    enabled: true
+    name: mta-operator
+    namespace: openshift-mta
+    channel: stable-v8.0
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    installPlanApproval: Automatic
+
+
+# ============================================================
+# Values injected by field content workload (do not modify)
+# ============================================================
+deployer:
+  domain: ""
+  apiUrl: ""
+
+fieldContent:
+  deploymentType: "helm"
