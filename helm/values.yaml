@@ -29,6 +29,30 @@ components:
     source: redhat-operators
     sourceNamespace: openshift-marketplace
     installPlanApproval: Automatic
+  operator2:
+    enabled: true
+    name: cloudnative-pg
+    namespace: cnpg-system
+    channel: stable-v1
+    source: certified-operators
+    sourceNamespace: openshift-marketplace
+    installPlanApproval: Automatic
+  operator3:
+    enabled: true
+    name: devspaces
+    namespace: openshift-devspaces
+    channel: stable
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    installPlanApproval: Automatic
+  operator4:
+    enabled: true
+    name: rhbk-operator
+    namespace: keycloak-operator
+    channel: stable-v26
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    installPlanApproval: Automatic
 
 
 # ============================================================
