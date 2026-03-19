@@ -2,6 +2,16 @@
 {{- $existingSub := lookup "operators.coreos.com/v1alpha1" "Subscription" .Values.operator2.namespace .Values.operator2.name }}
 {{- if not $existingSub.metadata }}
 ---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: {{ .Values.operator2.name }}-og
+  namespace: {{ .Values.operator2.namespace }}
+spec:
+  # targetNamespaces を指定しない、または自身の Namespace を指定することで
+  # その Namespace 内で Operator が動作するようになります
+  targetNamespaces: {{ .Values.operator2.namespace }}
+---
 # Install operator via OLM Subscription
 # Skipped automatically if subscription already exists
 apiVersion: operators.coreos.com/v1alpha1
