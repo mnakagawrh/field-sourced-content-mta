@@ -10,7 +10,8 @@ metadata:
 spec:
   # targetNamespaces を指定しない、または自身の Namespace を指定することで
   # その Namespace 内で Operator が動作するようになります
-  targetNamespaces: {{ .Values.operator1.namespace }}
+  targetNamespaces:
+    - {{ .Values.operator1.namespace }}
 ---
 # Install operator via OLM Subscription
 # Skipped automatically if subscription already exists
