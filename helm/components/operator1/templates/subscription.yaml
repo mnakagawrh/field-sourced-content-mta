@@ -28,5 +28,14 @@ spec:
   name: {{ .Values.operator1.name }}
   source: {{ .Values.operator1.source }}
   sourceNamespace: {{ .Values.operator1.sourceNamespace }}
+---
+kind: Tackle
+apiVersion: tackle.konveyor.io/v1alpha1
+metadata:
+  name: tackle
+  namespace: {{ .Values.operator1.namespace }}
+spec:
+  rwx_supported: "false"
+  feature_auth_required: "false"
 {{- end }}
 {{- end }}
