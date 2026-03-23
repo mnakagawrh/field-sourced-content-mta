@@ -23,10 +23,10 @@ components:
   # --- Operator Installation ---
   operator1:
     enabled: true
-    name: konveyor
+    name: konveyor-operator
     namespace: konveyor-tackle
     channel: konveyor-0.9
-    source: konveyor
+    source: community-operators
     sourceNamespace: openshift-marketplace
     installPlanApproval: Automatic
   operator2:
