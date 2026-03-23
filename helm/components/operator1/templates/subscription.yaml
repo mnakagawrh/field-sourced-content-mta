@@ -28,7 +28,9 @@ spec:
   name: {{ .Values.operator1.name }}
   source: {{ .Values.operator1.source }}
   sourceNamespace: {{ .Values.operator1.sourceNamespace }}
+{{- end }}
 ---
+# Tackle CR - 常に適用（Solution Server など spec の変更を反映）
 kind: Tackle
 apiVersion: tackle.konveyor.io/v1alpha1
 metadata:
@@ -37,5 +39,16 @@ metadata:
 spec:
   rwx_supported: "false"
   feature_auth_required: "false"
-{{- end }}
+  {{- if and .Values.operator1.solutionServer .Values.operator1.solutionServer.enabled }}
+  # Solution Server (Konveyor AI) 設定
+  # https://konveyor.io/docs/konveyor/kai/solutionserver/
+  kai_solution_server_enabled: true
+  kai_llm_provider: {{ .Values.operator1.solutionServer.llmProvider | default "openai" | quote }}
+  {{- if .Values.operator1.solutionServer.llmModel }}
+  kai_llm_model: {{ .Values.operator1.solutionServer.llmModel | quote }}
+  {{- end }}
+  {{- if .Values.operator1.solutionServer.llmBaseUrl }}
+  kai_llm_baseurl: {{ .Values.operator1.solutionServer.llmBaseUrl | quote }}
+  {{- end }}
+  {{- end }}
 {{- end }}

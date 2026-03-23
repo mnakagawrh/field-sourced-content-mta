@@ -9,3 +9,18 @@ operator1:
   source: community-operators
   sourceNamespace: openshift-marketplace
   installPlanApproval: Automatic
+
+  # Solution Server (Konveyor AI) - MCP サーバーで AI によるソリューション提案を有効化
+  # https://konveyor.io/docs/konveyor/kai/solutionserver/
+  solutionServer:
+    # 有効にする場合は true、無効なら false または削除
+    enabled: false
+    # LLM プロバイダー: openai, azure_openai, bedrock, google, ollama など
+    llmProvider: "openai"
+    # 使用するモデル名（オプション）
+    llmModel: "gpt-4o-mini"
+    # OpenAI 互換 API 用の base URL（Parasol MaaS など社内 LLM 利用時）
+    # 例: "https://xxx-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com/v1"
+    # llmBaseUrl: ""
+    # API キー（GitOps で管理する場合は Sealed Secrets 推奨。本番では手動作成推奨）
+    # apiKey: ""  # 未設定時は手動で kai-api-keys Secret を作成すること

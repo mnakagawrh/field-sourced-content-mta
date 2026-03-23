@@ -29,6 +29,12 @@ components:
     source: community-operators
     sourceNamespace: openshift-marketplace
     installPlanApproval: Automatic
+    # Solution Server (Konveyor AI) - 有効化で kai-* Pod が konveyor-ai namespace にデプロイされる
+    solutionServer:
+      enabled: true
+      llmProvider: "openai"
+      llmModel: "llama-4-scout-17b-16e-w4a16"  # Parasol MaaS のモデル名
+      llmBaseUrl: "https://llama-4-scout-17b-16e-w4a16-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com/v1"
   operator2:
     enabled: true
     name: cloudnative-pg

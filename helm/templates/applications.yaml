@@ -28,6 +28,9 @@ spec:
           source: {{ .Values.components.operator1.source }}
           sourceNamespace: {{ .Values.components.operator1.sourceNamespace }}
           installPlanApproval: {{ .Values.components.operator1.installPlanApproval }}
+          {{- if .Values.components.operator1.solutionServer }}
+          solutionServer: {{ .Values.components.operator1.solutionServer | toJson }}
+          {{- end }}
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.components.operator1.namespace }}
