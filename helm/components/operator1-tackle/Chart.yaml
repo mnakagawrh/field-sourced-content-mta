@@ -1,0 +1,6 @@
+apiVersion: v2
+name: operator1-tackle
+description: Konveyor Tackle CR (after operator CRDs exist)
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

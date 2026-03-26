@@ -1,0 +1,21 @@
+{{- if .Values.operator1.enabled }}
+{{/* Tackle: separate Application so OLM installs CRDs before this resource. */}}
+kind: Tackle
+apiVersion: tackle.konveyor.io/v1alpha1
+metadata:
+  name: tackle
+  namespace: {{ .Values.operator1.namespace }}
+spec:
+  rwx_supported: "false"
+  feature_auth_required: "false"
+  {{- if and .Values.operator1.solutionServer .Values.operator1.solutionServer.enabled }}
+  kai_solution_server_enabled: true
+  kai_llm_provider: {{ .Values.operator1.solutionServer.llmProvider | default "openai" | quote }}
+  {{- if .Values.operator1.solutionServer.llmModel }}
+  kai_llm_model: {{ .Values.operator1.solutionServer.llmModel | quote }}
+  {{- end }}
+  {{- if .Values.operator1.solutionServer.llmBaseUrl }}
+  kai_llm_baseurl: {{ .Values.operator1.solutionServer.llmBaseUrl | quote }}
+  {{- end }}
+  {{- end }}
+{{- end }}

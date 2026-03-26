@@ -8,6 +8,8 @@ kind: Application
 metadata:
   name: {{ .Release.Name }}-operator1
   namespace: {{ .Values.argocd.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
   labels:
     demo.redhat.com/application: "work-operator1"
   finalizers:
@@ -38,6 +40,47 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Release.Name }}-operator1-tackle
+  namespace: {{ .Values.argocd.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    demo.redhat.com/application: "work-operator1-tackle"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.argocd.project }}
+  source:
+    repoURL: {{ .Values.gitops.repoUrl }}
+    targetRevision: {{ .Values.gitops.revision }}
+    path: {{ .Values.gitops.basePath }}/components/operator1-tackle
+    helm:
+      valuesObject:
+        operator1:
+          enabled: {{ .Values.components.operator1.enabled }}
+          namespace: {{ .Values.components.operator1.namespace }}
+          {{- if .Values.components.operator1.solutionServer }}
+          solutionServer: {{ .Values.components.operator1.solutionServer | toJson }}
+          {{- end }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.components.operator1.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 15
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 5m
     syncOptions:
       - CreateNamespace=true
 {{- end }}

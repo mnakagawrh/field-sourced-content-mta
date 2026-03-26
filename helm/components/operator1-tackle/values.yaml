@@ -1,0 +1,6 @@
+# Tackle instance — same shape as parent components.operator1 (subset)
+operator1:
+  enabled: true
+  namespace: konveyor-tackle
+  solutionServer:
+    enabled: false
