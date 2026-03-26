@@ -29,12 +29,15 @@ components:
     source: community-operators
     sourceNamespace: openshift-marketplace
     installPlanApproval: Automatic
-    # Solution Server (Konveyor AI) - 有効化で kai-* Pod が konveyor-ai namespace にデプロイされる
+    # Solution Server — API Key は Secret のみ。モデル・URL は確定後にコメント解除して push
+    # 手順: helm/docs/operator1-solution-server-inject-later.md
     solutionServer:
-      enabled: true
-      llmProvider: "openai"
-      llmModel: "llama-4-scout-17b-16e-w4a16"  # Parasol MaaS のモデル名
-      llmBaseUrl: "https://llama-4-scout-17b-16e-w4a16-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com/v1"
+      enabled: false   # LLMの情報が揃ったら true に
+      # 以下、確定したらコメントを外して値を整える、Gitのpush前にSecret（kai-api-keys）を作っておく
+      # llmProvider: "openai"
+      # llmModel: "your-model-name"
+      # llmBaseUrl: "https://your-maas.example.com/v1"
+      # existingSecretName: kai-api-keys
   operator2:
     enabled: true
     name: cloudnative-pg

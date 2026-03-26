@@ -20,7 +20,7 @@ operator1:
     # 使用するモデル名（オプション）
     llmModel: "gpt-4o-mini"
     # OpenAI 互換 API 用の base URL（Parasol MaaS など社内 LLM 利用時）
-    # 例: "https://xxx-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com/v1"
     # llmBaseUrl: ""
-    # API キー（GitOps で管理する場合は Sealed Secrets 推奨。本番では手動作成推奨）
-    # apiKey: ""  # 未設定時は手動で kai-api-keys Secret を作成すること
+    # --- API キー（次のいずれか）---
+    # apiKey: ""              # 設定すると Helm が kai-api-keys Secret を konveyor-tackle に作成（Git に載せないこと）
+    # existingSecretName: ""  # 既に作成済みの Secret 名（SealedSecret 等）。設定時は apiKey は不要
