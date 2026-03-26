@@ -1,14 +1,9 @@
 {{- if .Values.operator3.enabled }}
-{{/* Always render OG + Subscription (no Helm lookup — avoids ArgoCD prune deleting OLM on resync). */}}
----
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: {{ .Values.operator3.name }}-og
-  namespace: {{ .Values.operator3.namespace }}
-spec:
-  targetNamespaces:
-    - {{ .Values.operator3.namespace }}
+{{/*
+  Dev Spaces は OwnNamespace の OperatorGroup と互換ではない（CSV: UnsupportedOperatorGroup）。
+  redhat-operators の推奨は openshift-operators + 既存の global-operators（spec: {}）。
+  ここでは Subscription のみ。OperatorGroup はクラスタ既定のものを利用する。
+*/}}
 ---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
