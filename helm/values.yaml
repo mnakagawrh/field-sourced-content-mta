@@ -32,12 +32,12 @@ components:
     # Solution Server — API Key は Secret のみ。モデル・URL は確定後にコメント解除して push
     # 手順: helm/docs/operator1-solution-server-inject-later.md
     solutionServer:
-      enabled: false   # LLMの情報が揃ったら true に
+      enabled: true   # LLMの情報が揃ったら true に
       # 以下、確定したらコメントを外して値を整える、Gitのpush前にSecret（kai-api-keys）を作っておく
-      # llmProvider: "openai"
-      # llmModel: "granite-3-3-8b-instruct "
-      # llmBaseUrl: "https://granite-3-3-8b-instruct-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1"
-      # existingSecretName: kai-api-keys
+      llmProvider: "openai"
+      llmModel: "r1-qwen-14b-w4a16"
+      llmBaseUrl: "https://deepseek-r1-qwen-14b-w4a16-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1"
+      existingSecretName: kai-api-keys
   operator2:
     enabled: true
     name: cloudnative-pg
