@@ -35,8 +35,8 @@ components:
       enabled: true   # LLMの情報が揃ったら true に
       # 以下、確定したらコメントを外して値を整える、Gitのpush前にSecret（kai-api-keys）を作っておく
       llmProvider: "openai"
-      llmModel: "llama-4-scout-17b-16e-w4a16"
-      llmBaseUrl: "https://llama-4-scout-17b-16e-w4a16-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1"
+      llmModel: "granite-3-3-8b-instruct "
+      llmBaseUrl: "https://granite-3-3-8b-instruct-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1"
       existingSecretName: kai-api-keys
   operator2:
     enabled: true
