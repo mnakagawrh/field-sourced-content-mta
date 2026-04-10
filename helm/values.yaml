@@ -29,6 +29,13 @@ components:
     source: redhat-operators
     sourceNamespace: openshift-marketplace
     installPlanApproval: Automatic
+    # MTA UI / Hub — Tackle CR
+    mtaInstance:
+      enabled: true
+      name: mta
+      hubBucketVolumeSize: "2.5Gi"
+      mavenDataVolumeSize: "2.5Gi"
+      rwxSupported: "false"
   operator2:
     enabled: true
     name: cloudnative-pg

@@ -8,6 +8,8 @@ kind: Application
 metadata:
   name: {{ .Release.Name }}-operator1
   namespace: {{ .Values.argocd.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
   labels:
     demo.redhat.com/application: "work-operator1"
   finalizers:
@@ -37,6 +39,50 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+{{- if and .Values.components.operator1.mtaInstance .Values.components.operator1.mtaInstance.enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Release.Name }}-operator1-mta
+  namespace: {{ .Values.argocd.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    demo.redhat.com/application: "work-operator1-mta"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{ .Values.argocd.project }}
+  source:
+    repoURL: {{ .Values.gitops.repoUrl }}
+    targetRevision: {{ .Values.gitops.revision }}
+    path: {{ .Values.gitops.basePath }}/components/operator1-mta
+    helm:
+      valuesObject:
+        mtaInstance:
+          enabled: {{ .Values.components.operator1.mtaInstance.enabled }}
+          name: {{ .Values.components.operator1.mtaInstance.name }}
+          namespace: {{ .Values.components.operator1.namespace }}
+          hubBucketVolumeSize: {{ .Values.components.operator1.mtaInstance.hubBucketVolumeSize | quote }}
+          mavenDataVolumeSize: {{ .Values.components.operator1.mtaInstance.mavenDataVolumeSize | quote }}
+          rwxSupported: {{ .Values.components.operator1.mtaInstance.rwxSupported | quote }}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Values.components.operator1.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      limit: 15
+      backoff:
+        duration: 30s
+        factor: 2
+        maxDuration: 5m
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
 {{- end }}
 {{- if .Values.components.operator2.enabled }}
 ---

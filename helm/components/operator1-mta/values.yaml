@@ -1,0 +1,8 @@
+# MTA instance (Tackle CR) — see Red Hat MTA 8 doc "Creating an MTA instance"
+mtaInstance:
+  enabled: true
+  name: mta
+  namespace: openshift-mta
+  hubBucketVolumeSize: "2.5Gi"
+  mavenDataVolumeSize: "2.5Gi"
+  rwxSupported: "false"

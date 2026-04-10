@@ -1,0 +1,12 @@
+{{- if .Values.mtaInstance.enabled }}
+{{/* Separate ArgoCD Application: Tackle CR needs tackle.konveyor.io CRD from mta-operator first. */}}
+apiVersion: tackle.konveyor.io/v1alpha1
+kind: Tackle
+metadata:
+  name: {{ .Values.mtaInstance.name }}
+  namespace: {{ .Values.mtaInstance.namespace }}
+spec:
+  hub_bucket_volume_size: {{ .Values.mtaInstance.hubBucketVolumeSize | quote }}
+  maven_data_volume_size: {{ .Values.mtaInstance.mavenDataVolumeSize | quote }}
+  rwx_supported: {{ .Values.mtaInstance.rwxSupported | quote }}
+{{- end }}
